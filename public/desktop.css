@@ -1,0 +1,70 @@
+/* Stricto Desktop Styles */
+/* Loaded for screens > 900px */
+
+.mobile-header {
+    display: none;
+}
+
+.sidebar {
+    display: none !important;
+    /* Hide sidebar on desktop (analytics page has its own) */
+}
+
+.dashboard-grid .sidebar {
+    display: flex !important;
+    /* But show on dashboard */
+    width: 280px;
+    flex-direction: column;
+    padding: 20px;
+    overflow-y: auto;
+    /* Enable scrolling */
+    max-height: 100%;
+    /* Ensure it respects grid height */
+}
+
+.dashboard-grid {
+    display: grid;
+    grid-template-columns: 280px 1fr 320px;
+    gap: 24px;
+    padding: 24px;
+    height: 100vh;
+    overflow: hidden;
+    max-width: 1400px;
+    margin: 0 auto;
+}
+
+.main-feed {
+    flex: 1;
+    overflow-y: auto;
+    padding: 20px;
+}
+
+/* Sidebar Scrollbar - Exact Match with Main-feed */
+.sidebar::-webkit-scrollbar,
+.dashboard-grid .sidebar::-webkit-scrollbar {
+    width: 6px;
+}
+
+.sidebar::-webkit-scrollbar-track,
+.dashboard-grid .sidebar::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.03);
+    border-radius: 10px;
+}
+
+.sidebar::-webkit-scrollbar-thumb,
+.dashboard-grid .sidebar::-webkit-scrollbar-thumb {
+    background: linear-gradient(180deg, var(--primary), var(--secondary));
+    border-radius: 10px;
+    box-shadow: 0 0 6px rgba(10, 255, 104, 0.4);
+}
+
+.sidebar::-webkit-scrollbar-thumb:hover,
+.dashboard-grid .sidebar::-webkit-scrollbar-thumb:hover {
+    background: var(--primary);
+}
+
+/* Fix Grid Overflow Issues */
+.dashboard-grid>* {
+    min-height: 0;
+    min-width: 0;
+}

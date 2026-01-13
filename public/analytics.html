@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stricto // Analytics</title>
+    <link rel="icon" href="favicon.png" type="image/png">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="desktop.css" media="screen and (min-width: 900px)">
+    <link rel="stylesheet" href="mobile.css" media="screen and (max-width: 899px)">
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#000000">
+    <script type="module" src="analytics.js" defer></script>
+
+</head>
+
+<body style="overflow-y: auto;">
+
+    <!-- Mobile Header -->
+    <div class="mobile-header">
+        <div style="display:flex; align-items:center; gap:10px; font-weight:bold; color:var(--primary);">
+            <ion-icon name="shield-half"></ion-icon> STRICTO
+        </div>
+        <ion-icon name="menu-outline" onclick="document.querySelector('.sidebar').classList.toggle('active')"
+            style="font-size:1.8rem; cursor:pointer; color:#fff;"></ion-icon>
+    </div>
+
+    <!-- Mobile Sidebar -->
+    <aside class="sidebar">
+        <div class="glass-panel" style="padding: 20px; text-align: center; margin-bottom: 15px;">
+            <h3 style="margin: 0; color: var(--primary);">MENU</h3>
+        </div>
+        <nav class="glass-panel" style="padding: 10px;">
+            <div class="nav-menu" style="gap: 8px;">
+                <div class="nav-item" onclick="window.location.href='dashboard.html'"
+                    style="cursor: pointer; padding: 10px 12px;">
+                    <ion-icon name="grid-outline"></ion-icon> Dashboard
+                </div>
+                <div class="nav-item active" onclick="window.location.href='analytics.html'"
+                    style="cursor: pointer; padding: 10px 12px;">
+                    <ion-icon name="bar-chart-outline"></ion-icon> Analytics
+                </div>
+                <div class="nav-item" onclick="window.location.href='achievements.html'"
+                    style="cursor: pointer; padding: 10px 12px;">
+                    <ion-icon name="trophy-outline"></ion-icon> Achievements
+                </div>
+                <div class="nav-item" onclick="window.location.href='settings.html'"
+                    style="cursor: pointer; padding: 10px 12px;">
+                    <ion-icon name="settings-outline"></ion-icon> Settings
+                </div>
+                <div class="nav-item" onclick="shareApp()"
+                    style="cursor: pointer; padding: 10px 12px; color: var(--secondary);">
+                    <ion-icon name="share-social-outline"></ion-icon> Share App
+                </div>
+            </div>
+        </nav>
+    </aside>
+
+    <div class="app-container" style="max-width: 1400px; margin: 0 auto; padding: 20px;">
+
+        <!-- Header -->
+        <header class="flex center gap-20" style="justify-content: space-between; margin-bottom: 30px;">
+            <div class="flex center gap-10">
+                <button onclick="window.location.href='dashboard.html'" class="btn btn-icon">
+                    <ion-icon name="arrow-back"></ion-icon>
+                </button>
+                <h1 style="font-size: 1.5rem; margin:0;">PERFORMANCE INTELLIGENCE</h1>
+            </div>
+            <div id="user-rank" class="badge">NOVICE</div>
+        </header>
+
+        <!-- 1. IDENTITY & GOAL CARD -->
+        <div class="identity-banner">
+            <div class="flex center gap-20 identity-content">
+                <div style="position: relative;">
+                    <div class="avatar-circle"
+                        style="width: 70px; height: 70px; font-size: 1.5rem; border: 2px solid var(--text-dim); display:flex; align-items:center; justify-content:center;">
+                        <span id="intel-initials">?</span>
+                    </div>
+                    <!-- Badge display below avatar -->
+                    <div style="margin-top: 8px; text-align: center;">
+                        <span id="intel-level-badge"
+                            style="font-size: 0.7rem; color: var(--primary); font-weight: 600; letter-spacing: 1px;">ROOKIE</span>
+                    </div>
+                </div>
+
+                <div style="text-align: left;">
+                    <div class="text-muted" style="font-size: 0.8rem;">CURRENT OBJECTIVE</div>
+                    <h2 id="target-exam-name"
+                        style="margin: 0; font-size: 1.8rem; background: linear-gradient(to right, #fff, #999); background-clip: text; -webkit-background-clip: text; -webkit-text-fill-color: transparent;">
+                        LOADING...</h2>
+                    <div id="exam-phase-tag" class="phase-pill" style="margin-top: 8px; display: inline-block;">PHASE:
+                        PRELIMS</div>
+                </div>
+            </div>
+
+            <div class="count-box">
+                <div class="text-muted" style="font-size: 0.7rem; margin-bottom: 5px;">TIME REMAINING</div>
+                <div id="countdown-timer" class="count-number">000</div>
+                <div style="font-size: 0.7rem; color: var(--text-dim);">DAYS LEFT</div>
+            </div>
+        </div>
+
+        <!-- 2. WAR ROOM GRID (Radar + DNA) -->
+        <div class="war-room-grid">
+
+            <div class="glass-panel chart-panel flex col">
+                <div class="flex between w-full mb-2">
+                    <h3 style="margin:0; font-size: 1rem;"><ion-icon name="aperture"></ion-icon> SKILL RADAR</h3>
+                    <ion-icon name="information-circle-outline" style="opacity: 0.5;"
+                        title="Based on your settings"></ion-icon>
+                </div>
+                <!-- Canvas for Chart.js -->
+                <div style="width: 100%; height: 300px; position: relative;">
+                    <canvas id="radarChart"></canvas>
+                </div>
+            </div>
+
+            <div class="glass-panel flex col justify-center">
+                <h3 style="margin:0 0 20px 0; font-size: 1rem;"><ion-icon name="construct"></ion-icon> ACADEMIC DNA</h3>
+
+                <div class="dna-bar-group">
+                    <div class="dna-label"><span>MATH / QUANT</span> <span id="val-math">Avg</span></div>
+                    <div class="dna-track">
+                        <div class="dna-fill" id="fill-math" style="background: var(--secondary);"></div>
+                    </div>
+                </div>
+
+                <div class="dna-bar-group">
+                    <div class="dna-label"><span>REASONING</span> <span id="val-reas">Strong</span></div>
+                    <div class="dna-track">
+                        <div class="dna-fill" id="fill-reas" style="background: var(--primary);"></div>
+                    </div>
+                </div>
+
+                <div class="dna-bar-group">
+                    <div class="dna-label"><span>ENGLISH</span> <span id="val-eng">Weak</span></div>
+                    <div class="dna-track">
+                        <div class="dna-fill" id="fill-eng" style="background: var(--danger);"></div>
+                    </div>
+                </div>
+
+                <div class="dna-bar-group" id="ga-slider-group" style="display: none;">
+                    <div class="dna-label"><span>GEN. AWARENESS</span> <span id="val-ga">Avg</span></div>
+                    <div class="dna-track">
+                        <div class="dna-fill" id="fill-ga" style="background: var(--warning);"></div>
+                    </div>
+                </div>
+
+                <div
+                    style="margin-top: 20px; padding: 15px; background: rgba(255,255,255,0.05); border-radius: 8px; font-size: 0.8rem; color: var(--text-dim);">
+                    <ion-icon name="bulb" style="color: var(--warning);"></ion-icon>
+                    <strong>Strategy Tip:</strong> Focus 70% of your time on <span
+                        style="color: var(--danger);">WEAK</span> subjects during the 'Far' phase.
+                </div>
+            </div>
+        </div>
+
+        <!-- Weekly Velocity Chart -->
+        <div class="glass-panel" style="padding: 25px; margin-bottom: 20px;">
+            <div class="flex between center mb-4">
+                <h3 style="margin:0;"><ion-icon name="pulse-outline"></ion-icon> WEEKLY VELOCITY</h3>
+                <span class="badge" style="background: rgba(var(--primary-rgb), 0.1); color: var(--primary);">LAST 7
+                    DAYS</span>
+            </div>
+
+            <div class="flex center gap-20" style="align-items: flex-end; height: 150px;" id="weekly-chart-container">
+                <!-- JS will inject bars here -->
+                <div class="flex center w-full" style="color: var(--text-dim);">Analyzing temporal data...</div>
+            </div>
+        </div>
+
+
+
+        <!-- Subject Wise Heatmaps -->
+        <div id="subject-heatmaps-container" class="subject-grid">
+            <!-- JS will inject one section per subject -->
+            <div class="glass-panel center" style="padding: 50px;">
+                <ion-icon name="sync" class="spin" style="font-size: 2rem;"></ion-icon>
+                <p>Decoding Mission Intelligence...</p>
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+        // Service Worker Registration
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('./sw.js')
+                    .then(reg => console.log('Service Worker registered'))
+                    .catch(err => console.log('Service Worker registration failed', err));
+            });
+        }
+    </script>
+</body>
+
+</html>

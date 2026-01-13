@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stricto // Command Center</title>
+    <link rel="icon" href="favicon.png" type="image/png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="desktop.css" media="screen and (min-width: 900px)">
+    <link rel="stylesheet" href="mobile.css" media="screen and (max-width: 899px)">
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#000000">
+</head>
+
+<body>
+
+    <!-- Mobile Header -->
+    <div class="mobile-header">
+        <div style="display:flex; align-items:center; gap:10px; font-weight:bold; color:var(--primary);">
+            <ion-icon name="shield-half"></ion-icon> STRICTO
+        </div>
+        <ion-icon name="menu-outline" onclick="document.querySelector('.sidebar').classList.toggle('active')"
+            style="font-size:1.8rem; cursor:pointer; color:#fff;"></ion-icon>
+    </div>
+
+    <div class="dashboard-grid">
+
+        <!-- COLUMN 1: SIDEBAR -->
+        <aside class="sidebar slide-in-left">
+            <!-- User Profile Card -->
+            <div class="glass-panel user-card">
+                <div style="position: relative; margin: 0 auto 15px; width: 60px; height: 60px;">
+                    <div class="avatar" id="user-avatar"
+                        style="width: 60px; height: 60px; font-size: 1.5rem; background: linear-gradient(135deg, var(--primary), var(--secondary)); border: 2px solid rgba(255,255,255,0.2); box-shadow: 0 0 20px rgba(10,255,104,0.3);">
+                        ?</div>
+                    <div id="user-rank-badge"
+                        style="position: absolute; bottom: -12px; right: 0px; background: rgba(0,0,0,0.95); border: 2px solid var(--primary); border-radius: 12px; padding: 2px 8px; font-size: 0.65rem; font-weight: 700; letter-spacing: 0.5px; color: #fff; z-index: 10;">
+                        ROOKIE</div>
+                </div>
+                <h3 id="user-name-display" style="margin-bottom: 5px;">Unknown Agent</h3>
+                <p class="text-muted" style="font-size: 0.8rem; margin-bottom: 15px;" id="user-level-text">LEVEL 1
+                    RECRUIT</p>
+                <div class="flex center gap-10">
+                    <button class="btn btn-primary" onclick="window.location.href='profile.html'"
+                        style="font-size: 0.7rem; padding: 6px 12px;">Profile</button>
+                    <button class="btn btn-outline" id="logout-btn-dash"
+                        style="font-size: 0.7rem; padding: 6px 12px;">Logout</button>
+                </div>
+            </div>
+
+            <!-- Navigation -->
+            <nav class="glass-panel" style="padding: 10px; margin-bottom: 12px;">
+                <div class="nav-menu" style="gap: 8px;">
+                    <div class="nav-item active" onclick="window.location.href='dashboard.html'"
+                        style="cursor: pointer; padding: 10px 12px;"><ion-icon name="grid-outline"></ion-icon> Dashboard
+                    </div>
+                    <div class="nav-item" onclick="window.location.href='analytics.html'"
+                        style="cursor: pointer; padding: 10px 12px;">
+                        <ion-icon name="bar-chart-outline"></ion-icon> Analytics
+                    </div>
+                    <div class="nav-item" onclick="window.location.href='achievements.html'"
+                        style="cursor: pointer; padding: 10px 12px;">
+                        <ion-icon name="trophy-outline"></ion-icon> Achievements
+                    </div>
+                    <div class="nav-item" onclick="window.location.href='settings.html'"
+                        style="cursor: pointer; padding: 10px 12px;">
+                        <ion-icon name="settings-outline"></ion-icon> Settings
+                    </div>
+                    <div class="nav-item" id="share-app-btn" onclick="shareApp()"
+                        style="cursor: pointer; padding: 10px 12px; color: var(--secondary);">
+                        <ion-icon name="share-social-outline"></ion-icon> Share App
+                    </div>
+                </div>
+            </nav>
+
+            <!-- Quick Actions -->
+            <div class="glass-panel mobile-hide-timer" style="padding: 15px; text-align: center;">
+                <p style="font-size: 0.75rem; margin-bottom: 8px; color: var(--text-dim);">POMODORO TIMER</p>
+                <div style="font-size: 1.8rem; font-weight: 700; color: var(--secondary); margin-bottom: 8px;">25:00
+                </div>
+                <button class="btn btn-outline w-full center" style="padding: 8px; font-size: 0.8rem;"><ion-icon
+                        name="play"></ion-icon> START</button>
+            </div>
+        </aside>
+
+        <!-- COLUMN 2: MAIN FEED -->
+        <main class="main-feed fade-in">
+
+            <!-- HEADER -->
+            <div class="section-header"
+                style="background: linear-gradient(135deg, rgba(10,255,104,0.05), rgba(0,0,0,0.3)); backdrop-filter: blur(10px); border: 1px solid rgba(10,255,104,0.1); border-radius: 16px; padding: 24px; margin-bottom: 24px;">
+                <div style="flex: 1;">
+                    <h1 id="dynamic-greeting"
+                        style="font-size: 2rem; background: linear-gradient(90deg, #fff, var(--primary)); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;">
+                        MORNING PROTOCOL</h1>
+                    <p style="color: var(--text-muted);">Initialize your daily sequence.</p>
+                </div>
+                <div style="text-align: right;">
+                    <div id="exam-countdown-badge"
+                        style="background: rgba(252,238,10,0.1); border: 1px solid rgba(252,238,10,0.3); padding: 8px 16px; border-radius: 12px; margin-bottom: 8px; display: inline-block;">
+                        <div style="font-size: 0.7rem; color: var(--warning); letter-spacing: 1px;">TARGET EXAM</div>
+                        <div style="font-size: 1.4rem; font-weight: 700; color: #fff;"><span id="days-to-exam">--</span>
+                            DAYS</div>
+                    </div>
+                    <div style="font-size: 0.85rem; color: var(--text-dim); margin-top: 4px;" id="current-date">
+                        --/--/----</div>
+                </div>
+            </div>
+
+            <!-- INPUT SECTION REMOVED -->
+            <div id="mission-control-panel" style="margin-bottom: 20px;">
+                <!-- JS will inject a simple 'Start Mission' button here if no tasks exist -->
+            </div>
+
+            <!-- TASK OUTPUT -->
+            <div class="glass-panel" style="padding: 24px; position: relative;">
+                <div class="flex between center"
+                    style="margin-bottom: 20px; position: sticky; top: 0; background: var(--glass-bg); backdrop-filter: blur(10px); z-index: 10; padding-bottom: 15px; border-bottom: 1px solid rgba(255,255,255,0.05);">
+                    <h3 style="display: flex; align-items: center; gap: 10px;"><ion-icon name="list"
+                            style="color: var(--primary);"></ion-icon> MISSION LOG</h3>
+                    <div class="flex gap-10">
+                        <select id="filter-sort" class="input-field"
+                            style="padding: 5px; font-size: 0.8rem; width: auto; background: rgba(0,0,0,0.3);">
+                            <option value="priority">★ Priority</option>
+                            <option value="time_asc">Time (Shortest)</option>
+                            <option value="time_desc">Time (Longest)</option>
+                        </select>
+                        <select id="filter-subject" class="input-field"
+                            style="padding: 5px; font-size: 0.8rem; width: auto; background: rgba(0,0,0,0.3);">
+                            <option value="all">All Subjects</option>
+                            <option value="MATH">Math</option>
+                            <option value="ENGLISH">English</option>
+                            <option value="REASONING">Reasoning</option>
+                            <option value="GA">GA</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div id="task-list-container" style="min-height: 100px;">
+                    <!-- Tasks injected here -->
+                    <div style="text-align: center; color: var(--text-dim); margin-top: 30px;">
+                        Waiting for Status Report input...
+                    </div>
+                </div>
+            </div>
+
+            <footer style="text-align: center; padding: 20px; color: grey; font-size: 0.8rem; margin-top: 20px;">
+                <p>STRICTO AI &copy; 2026 - Proof Based Discipline</p>
+            </footer>
+        </main>
+
+        <!-- COLUMN 3: STATS / INFO -->
+        <aside class="stats-panel slide-in-right">
+
+            <div class="glass-panel stat-box">
+                <div class="stat-number text-primary" id="stat-compliance">0%</div>
+                <p>COMPLIANCE RATE</p>
+            </div>
+
+            <div class="glass-panel stat-box">
+                <div class="stat-number text-danger" id="stat-streak">0</div>
+                <p>DAY STREAK</p>
+            </div>
+
+            <div class="glass-panel" style="padding: 20px; border: 1px solid var(--secondary);">
+                <h3 style="font-size: 1.2rem; margin-bottom: 15px; color: var(--secondary);">SYLLABUS TRAJECTORY</h3>
+                <p style="font-size: 0.9rem; font-style: italic; color: var(--text-muted);" id="ai-insight-text">
+                    "Discipline is not about motivation. It's about doing what needs to be done, even when you don't
+                    feel like it."
+                </p>
+            </div>
+
+            <!-- Leave Button -->
+            <button class="btn w-full center" style="border-color: var(--danger); color: var(--danger);"
+                id="apply-leave-dash-btn">
+                <ion-icon name="alert-circle-outline"></ion-icon> REPORT ABSENCE
+            </button>
+
+        </aside>
+
+    </div>
+
+    <!-- VERIFICATION MODAL -->
+    <div id="verify-modal" class="modal-overlay hidden">
+        <div class="modal glass-panel" style="max-width: 500px; text-align: left;">
+            <div class="flex between center mb-4">
+                <h2 style="margin:0;">MISSION VERIFICATION</h2>
+                <button class="btn btn-outline" id="close-verify-btn" style="padding: 5px 10px;">X</button>
+            </div>
+
+            <p id="verify-instruction" class="text-muted" style="margin-bottom: 20px;">
+                Prove your work to complete this objective.
+            </p>
+
+            <!-- 1. MODE: CAM (Question Practice) -->
+            <div id="verify-cam" class="verify-section hidden">
+                <div
+                    style="position: relative; width: 100%; height: 300px; background: #000; overflow: hidden; border-radius: 8px;">
+                    <video id="camera-stream" autoplay playsinline
+                        style="width: 100%; height: 100%; object-fit: cover;"></video>
+                    <canvas id="camera-canvas" class="hidden"></canvas>
+                </div>
+                <div class="flex center mt-4 gap-10">
+                    <button class="btn btn-primary w-full" id="capture-btn"><ion-icon name="camera"></ion-icon> CAPTURE
+                        EVIDENCE</button>
+                </div>
+            </div>
+
+            <!-- 2. MODE: UPLOAD (Mock Tests) -->
+            <div id="verify-upload" class="verify-section hidden">
+                <div
+                    style="border: 2px dashed var(--glass-border); padding: 40px; text-align: center; border-radius: 8px;">
+                    <ion-icon name="cloud-upload-outline" style="font-size: 3rem; color: var(--text-muted);"></ion-icon>
+                    <p class="mt-2">Upload Score Screenshot</p>
+                    <input type="file" id="proof-file" accept="image/*" style="margin-top: 10px;">
+                </div>
+            </div>
+
+            <!-- 3. MODE: TEXT (Revision) -->
+            <div id="verify-text" class="verify-section hidden">
+                <textarea id="proof-text" class="input-field" placeholder="Summarize key concepts learned..."
+                    style="height: 150px; resize: none;"></textarea>
+            </div>
+
+            <button class="btn btn-primary w-full mt-4" id="submit-proof-btn" disabled>
+                <ion-icon name="checkmark-done-outline"></ion-icon> VERIFY & COMPLETE
+            </button>
+        </div>
+    </div>
+
+    <!-- LEAVE MODAL -->
+    <div id="leave-modal" class="modal-overlay hidden">
+        <div class="modal glass-panel" style="max-width: 400px; text-align: left;">
+            <div class="flex between center mb-4">
+                <h2 style="margin:0;">REPORT ABSENCE</h2>
+                <button class="btn btn-outline" id="close-leave-btn" style="padding: 5px 10px;">X</button>
+            </div>
+
+            <p class="text-muted" style="margin-bottom: 20px;">
+                Taking a break maintains long-term consistency.
+            </p>
+
+            <div class="mb-4">
+                <label style="font-size: 0.8rem; color: var(--text-muted);">LEAVE TYPE</label>
+                <select id="leave-type" class="input-field">
+                    <option value="sick">Sick Leave (Health Critical)</option>
+                    <option value="emergency">Family/Emergency</option>
+                    <option value="burnout">Mental Reset (Burnout)</option>
+                </select>
+            </div>
+
+            <div class="mb-4">
+                <label style="font-size: 0.8rem; color: var(--text-muted);">DURATION (DAYS)</label>
+                <input type="number" id="leave-duration" class="input-field" value="1" min="1" max="14">
+            </div>
+
+            <button class="btn btn-danger w-full mt-4" id="confirm-leave-btn">
+                <ion-icon name="alert-circle"></ion-icon> CONFIRM ABSENCE
+            </button>
+        </div>
+    </div>
+
+    <!-- SCRIPTS -->
+    <script type="module" src="app.js"></script>
+    <script type="module" src="dashboard.js"></script>
+    <script>
+        // Simple script to set date
+        document.getElementById('current-date').innerText = new Date().toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
+
+        // Service Worker Registration
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('./sw.js')
+                    .then(reg => console.log('Service Worker registered'))
+                    .catch(err => console.log('Service Worker registration failed', err));
+            });
+        }
+    </script>
+
+</body>
+
+</html>

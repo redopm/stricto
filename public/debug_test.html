@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Stricto // System Diagnostics</title>
+    <style>
+        body {
+            background: #000;
+            color: #0f0;
+            font-family: monospace;
+            padding: 20px;
+        }
+
+        button {
+            padding: 10px 20px;
+            font-size: 1.2rem;
+            cursor: pointer;
+            background: #0f0;
+            border: none;
+            font-weight: bold;
+        }
+
+        #log {
+            margin-top: 20px;
+            white-space: pre-wrap;
+            border: 1px solid #333;
+            padding: 10px;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>SYSTEM DIAGNOSTICS</h1>
+    <p>Test connection between Frontend and Brain Engine (Port 5000).</p>
+
+    <button onclick="runDiagnostics()">INITIATE TEST SEQUENCE</button>
+
+    <div id="log">Waiting...</div>
+
+    <script>
+        async function runDiagnostics() {
+            const logEl = document.getElementById('log');
+            logEl.innerText = "1. Pinging Brain Engine at http://127.0.0.1:5000/get-daily-task...\n";
+
+            try {
+                const payload = {
+                    subject: 'Math',
+                    level: 'weak',
+                    examStage: 'Prelims',
+                    examDate: '2026-06-15',
+                    userType: 'repeater',
+                    syllabusCompleted: 50
+                };
+
+                logEl.innerText += "2. Payload: " + JSON.stringify(payload) + "\n";
+
+                const response = await fetch('http://127.0.0.1:5000/get-daily-task', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload)
+                });
+
+                logEl.innerText += "3. Response Status: " + response.status + "\n";
+
+                if (!response.ok) {
+                    throw new Error("HTTP Error " + response.status);
+                }
+
+                const data = await response.json();
+                logEl.innerText += "4. Brain Response: \n" + JSON.stringify(data, null, 2);
+
+                if (data.tasks && data.tasks.length > 0) {
+                    logEl.innerText += "\n\n[SUCCESS] Brain is Online and Generating Tasks.";
+                } else {
+                    logEl.innerText += "\n\n[WARNING] Brain Online but returned 0 tasks (Logic Issue?).";
+                }
+
+            } catch (err) {
+                logEl.innerText += "\n[CRITICAL FAILURE] Connection Failed.\n";
+                logEl.innerText += "Reason: " + err.message + "\n";
+                logEl.innerText += "Troubleshooting:\n- Is server.py running?\n- Is Port 5000 blocked?\n- CORS Error?";
+            }
+        }
+    </script>
+</body>
+
+</html>

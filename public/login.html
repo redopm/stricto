@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - Stricto</title>
+    <link rel="icon" href="favicon.png" type="image/png">
+    <!-- Fonts & Icons -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#000000">
+</head>
+
+<body>
+
+    <div class="auth-container">
+        <div class="auth-card">
+
+            <!-- Professional Header -->
+            <div class="flex col center mb-4">
+                <div class="avatar"
+                    style="width: 60px; height: 60px; font-size: 2rem; border-color: var(--primary); background: rgba(10,255,104,0.05); margin-bottom: 15px;">
+                    <ion-icon name="shield-half"></ion-icon>
+                </div>
+                <h1 class="auth-title glitch" data-text="STRICTO" style="font-size: 2rem; margin: 0;">STRICTO</h1>
+                <p class="text-center text-muted"
+                    style="letter-spacing: 2px; text-transform: uppercase; font-size: 0.7rem; opacity: 0.7;">
+                    Operational Intelligence Unit
+                </p>
+            </div>
+
+            <!-- TABS -->
+            <div class="tab-container" style="margin-bottom: 30px;">
+                <span id="tab-login" class="tab active">AUTHENTICATE</span>
+                <span id="tab-signup" class="tab">ENLIST</span>
+            </div>
+
+            <form id="auth-form" class="flex col" style="flex-grow:1;">
+
+                <!-- Register Only Fields -->
+                <div id="register-fields" class="hidden">
+                    <div class="input-group">
+                        <label class="input-label">CODENAME</label>
+                        <input type="text" id="username" class="input-field" placeholder="Create your alias">
+                    </div>
+                    <div class="input-group">
+                        <label class="input-label">SECURE LINE</label>
+                        <input type="tel" id="phone" class="input-field" placeholder="10-digit comms number"
+                            maxlength="10">
+                    </div>
+                </div>
+
+                <div class="input-group">
+                    <label class="input-label">IDENTITY</label>
+                    <input type="email" id="email" class="input-field" placeholder="agent@stricto.ai" required>
+                </div>
+
+                <div class="input-group">
+                    <label class="input-label">PASSCODE</label>
+                    <input type="password" id="password" class="input-field" placeholder="••••••••" required>
+                </div>
+
+                <!-- Forgot Password Link (Login Mode Only) -->
+                <div id="forgot-password-link" class="text-center" style="margin-top: -10px; margin-bottom: 15px;">
+                    <a href="#" id="forgot-password-btn"
+                        style="font-size: 0.75rem; color: var(--primary); text-decoration: none; opacity: 0.8;">
+                        <ion-icon name="help-circle-outline" style="vertical-align: middle;"></ion-icon>
+                        Forgot Password?
+                    </a>
+                </div>
+
+                <div style="margin-top: 20px;">
+                    <button type="submit" class="btn btn-primary w-full center" id="auth-btn"
+                        style="height: 50px; font-size: 1rem; letter-spacing: 1px; justify-content: center;">
+                        <ion-icon name="finger-print-outline" style="font-size: 1.2rem;"></ion-icon>
+                        <span>INITIATE PROTOCOL</span>
+                    </button>
+
+                    <div class="flex center gap-10 mb-4">
+                        <div style="height:1px; background:var(--glass-border); flex:1;"></div>
+                        <span class="text-muted" style="font-size:0.7rem;">OR ACCESS VIA</span>
+                        <div style="height:1px; background:var(--glass-border); flex:1;"></div>
+                    </div>
+
+                    <button type="button" class="btn btn-outline w-full center" id="google-btn" style="height:46px;">
+                        <ion-icon name="logo-google" style="font-size:1.2rem;"></ion-icon>
+                        <span>Google</span>
+                    </button>
+                </div>
+            </form>
+
+            <p id="auth-error" class="text-danger text-center mt-4" style="font-size:0.85rem; font-weight:bold;"></p>
+        </div>
+    </div>
+
+    <!-- Logic -->
+    <script type="module" src="auth.js"></script>
+    <script>
+        // Service Worker Registration
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('./sw.js')
+                    .then(reg => console.log('Service Worker registered'))
+                    .catch(err => console.log('Service Worker registration failed', err));
+            });
+        }
+    </script>
+</body>
+
+</html>

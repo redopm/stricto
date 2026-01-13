@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stricto // Configuration</title>
+    <link rel="icon" href="favicon.png" type="image/png">
+
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="desktop.css" media="screen and (min-width: 900px)">
+    <link rel="stylesheet" href="mobile.css" media="screen and (max-width: 899px)">
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#000000">
+
+    <script type="module" src="settings.js" defer></script>
+
+
+</head>
+
+<body style="background: var(--bg-dark); color: #fff; overflow-y: auto;">
+
+    <div class="mobile-header">
+        <div style="display:flex; align-items:center; gap:10px; font-weight:bold; color:var(--primary);">
+            <ion-icon name="shield-half"></ion-icon> STRICTO
+        </div>
+        <div style="display:flex; align-items:center; gap:15px;">
+            <ion-icon name="share-social-outline" onclick="shareApp()"
+                style="font-size:1.5rem; cursor:pointer; color:var(--secondary);"></ion-icon>
+            <ion-icon name="close" onclick="window.location.href='dashboard.html'"
+                style="font-size:1.8rem; cursor:pointer; color:#fff;"></ion-icon>
+        </div>
+    </div>
+
+    <div class="settings-container">
+
+        <div class="flex between center" style="margin-bottom: 40px;">
+            <div>
+                <h1
+                    style="font-size: 2rem; margin: 0; background: linear-gradient(to right, #fff, #888); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;">
+                    PROTOCOL SETUP</h1>
+                <p class="text-muted" style="margin-top: 5px;">Calibrate your AI Strategy Engine.</p>
+            </div>
+            <button onclick="window.location.href='dashboard.html'" class="btn btn-outline desktop-only"
+                style="border-radius: 50%; width: 40px; height: 40px; padding: 0; display: flex; align-items: center; justify-content: center;">
+                <ion-icon name="close" style="font-size: 1.2rem;"></ion-icon>
+            </button>
+        </div>
+
+        <div class="glass-panel" style="padding: 30px;">
+            <form id="setup-form">
+
+                <div class="form-section">
+                    <div class="section-label"><ion-icon name="target"></ion-icon> MISSION TARGET</div>
+
+                    <div class="input-group">
+                        <input type="text" id="exam-goal" class="modern-input" placeholder="E.g., SBI PO, SSC CGL"
+                            required>
+                    </div>
+
+                    <div class="radio-grid">
+                        <label>
+                            <input type="radio" name="exam_stage" value="Prelims" class="radio-hidden" checked>
+                            <div class="radio-card">
+                                <ion-icon name="speedometer"></ion-icon> PRELIMS
+                            </div>
+                        </label>
+                        <label>
+                            <input type="radio" name="exam_stage" value="Mains" class="radio-hidden">
+                            <div class="radio-card">
+                                <ion-icon name="skull"></ion-icon> MAINS
+                            </div>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- USER TYPE SECTION (CRITICAL) -->
+                <div class="form-section">
+                    <div class="section-label"><ion-icon name="person"></ion-icon> COACHING PROFILE</div>
+
+                    <div class="radio-grid">
+                        <label>
+                            <input type="radio" name="user_type" value="beginner" class="radio-hidden" checked>
+                            <div class="radio-card">
+                                <ion-icon name="school"></ion-icon> BEGINNER
+                                <p style="font-size: 0.65rem; color: var(--text-dim); margin-top: 5px;">Starting prep
+                                    from basics</p>
+                            </div>
+                        </label>
+                        <label>
+                            <input type="radio" name="user_type" value="repeater" class="radio-hidden">
+                            <div class="radio-card">
+                                <ion-icon name="trophy"></ion-icon> REPEATER
+                                <p style="font-size: 0.65rem; color: var(--text-dim); margin-top: 5px;">Already familiar
+                                    with syllabus</p>
+                            </div>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="form-section">
+                    <div class="section-label"><ion-icon name="calendar"></ion-icon> TIMELINE</div>
+
+                    <div class="radio-grid" style="margin-bottom: 15px;">
+                        <label>
+                            <input type="radio" name="date_type" value="known" class="radio-hidden"
+                                onclick="document.getElementById('date-picker-wrapper').style.display='block'" checked>
+                            <div class="radio-card">
+                                <ion-icon name="calendar-number"></ion-icon> SELECT DATE
+                            </div>
+                        </label>
+                        <label>
+                            <input type="radio" name="date_type" value="unknown" class="radio-hidden"
+                                onclick="document.getElementById('date-picker-wrapper').style.display='none'">
+                            <div class="radio-card">
+                                <ion-icon name="help-circle"></ion-icon> DON'T KNOW
+                            </div>
+                        </label>
+                    </div>
+
+                    <div id="date-picker-wrapper">
+                        <input type="date" id="exam-date" class="modern-input">
+                    </div>
+                </div>
+
+                <div class="form-section">
+                    <div class="section-label"><ion-icon name="bar-chart"></ion-icon> SUBJECT PROFICIENCY</div>
+
+                    <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 15px;">
+                        <div>
+                            <label for="weak-subjects"
+                                style="font-size: 0.8rem; color: var(--text-dim); margin-bottom: 5px; display: block;">WEAK
+                                SUBJECTS</label>
+                            <input type="text" id="weak-subjects" class="modern-input" placeholder="e.g. English">
+                        </div>
+                        <div>
+                            <label for="avg-subjects"
+                                style="font-size: 0.8rem; color: var(--text-dim); margin-bottom: 5px; display: block;">AVERAGE
+                                SUBJECTS</label>
+                            <input type="text" id="avg-subjects" class="modern-input" placeholder="e.g. Reasoning">
+                        </div>
+                        <div>
+                            <label for="strong-subjects"
+                                style="font-size: 0.8rem; color: var(--text-dim); margin-bottom: 5px; display: block;">STRONG
+                                SUBJECTS</label>
+                            <input type="text" id="strong-subjects" class="modern-input" placeholder="e.g. Math">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-section">
+                    <div class="section-label"><ion-icon name="time"></ion-icon> LOGISTICS</div>
+
+                    <div class="radio-grid" style="grid-template-columns: 1fr 1fr 1fr;"> <label>
+                            <input type="radio" name="chronotype" value="early_bird" class="radio-hidden" checked>
+                            <div class="radio-card" style="flex-direction: column; font-size: 0.8rem;">
+                                <ion-icon name="sunny" style="font-size: 1.2rem;"></ion-icon> EARLY
+                            </div>
+                        </label>
+                        <label>
+                            <input type="radio" name="chronotype" value="night_owl" class="radio-hidden">
+                            <div class="radio-card" style="flex-direction: column; font-size: 0.8rem;">
+                                <ion-icon name="moon" style="font-size: 1.2rem;"></ion-icon> NIGHT
+                            </div>
+                        </label>
+                        <label>
+                            <input type="radio" name="chronotype" value="flexible" class="radio-hidden">
+                            <div class="radio-card" style="flex-direction: column; font-size: 0.8rem;">
+                                <ion-icon name="shuffle" style="font-size: 1.2rem;"></ion-icon> FLEX
+                            </div>
+                        </label>
+                    </div>
+
+                    <div style="margin-top: 15px;">
+                        <label
+                            style="font-size: 0.8rem; color: var(--text-dim); margin-bottom: 5px; display: block;">DAILY
+                            STUDY HOURS</label>
+                        <input type="number" id="daily-hours" class="modern-input" min="2" max="16" value="6">
+                    </div>
+                </div>
+
+                <button type="submit" class="btn btn-primary w-full center"
+                    style="padding: 18px; font-size: 1rem; margin-top: 30px; letter-spacing: 2px; text-transform: uppercase; font-weight: bold; border-radius: 12px; box-shadow: 0 0 20px rgba(10, 255, 104, 0.3);">
+                    <ion-icon name="finger-print" style="margin-right: 10px; font-size: 1.4rem;"></ion-icon>
+                    Update Configuration
+                </button>
+
+            </form>
+        </div>
+
+        <div style="height: 50px;"></div>
+    </div>
+
+    <script>
+        // Service Worker Registration
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('./sw.js')
+                    .then(reg => console.log('Service Worker registered'))
+                    .catch(err => console.log('Service Worker registration failed', err));
+            });
+        }
+    </script>
+</body>
+
+</html>

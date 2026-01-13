@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stricto // Hall of Fame</title>
+    <link rel="icon" href="favicon.png" type="image/png">
+
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="desktop.css" media="screen and (min-width: 900px)">
+    <link rel="stylesheet" href="mobile.css" media="screen and (max-width: 899px)">
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#000000">
+
+    <script type="module" src="achievements.js" defer></script>
+
+    <style>
+        /* === PREMIUM ACHIEVEMENTS DESIGN === */
+
+        /* 1. Header Card - Enhanced Currency Display */
+        .currency-card {
+            background: linear-gradient(135deg, rgba(10, 255, 104, 0.08) 0%, rgba(0, 0, 0, 0.9) 100%);
+            border: 1px solid rgba(10, 255, 104, 0.2);
+            border-radius: 20px;
+            padding: 35px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            position: relative;
+            overflow: hidden;
+            margin-bottom: 40px;
+            box-shadow: 0 8px 32px rgba(10, 255, 104, 0.1);
+        }
+
+        .currency-card::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 4px;
+            height: 100%;
+            background: linear-gradient(180deg, var(--primary), transparent);
+        }
+
+        .currency-card::after {
+            content: '';
+            position: absolute;
+            right: -30px;
+            top: -30px;
+            width: 120px;
+            height: 120px;
+            background: radial-gradient(circle, rgba(252, 238, 10, 0.15), transparent);
+            filter: blur(40px);
+        }
+
+        /* 2. Badge Grid - Optimized Spacing */
+        .badge-grid-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 24px;
+        }
+
+        /* 3. Badge Card - Premium Glassmorphic Design */
+        .badge-card {
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 16px;
+            padding: 28px 22px;
+            text-align: center;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+            cursor: pointer;
+        }
+
+        .badge-card::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(circle at 50% 0%, rgba(255, 255, 255, 0.1), transparent 70%);
+            opacity: 0;
+            transition: opacity 0.4s;
+        }
+
+        .badge-card:hover::before {
+            opacity: 1;
+        }
+
+        /* Icon Container - Enhanced with Glow */
+        .badge-icon-box {
+            width: 70px;
+            height: 70px;
+            margin: 0 auto 18px auto;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            background: rgba(255, 255, 255, 0.08);
+            border: 2px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.4s ease;
+            position: relative;
+        }
+
+        /* LOCKED STATE - More Readable */
+        .badge-card.locked {
+            opacity: 0.7;
+        }
+
+        .badge-card.locked .badge-icon-box {
+            color: #888;
+            background: rgba(255, 255, 255, 0.02);
+        }
+
+        .badge-card.locked .badge-title {
+            color: #999;
+        }
+
+        /* UNLOCKED STATE - Glowing Premium Effect */
+        .badge-card.unlocked {
+            border-color: rgba(0, 240, 255, 0.4);
+            background: linear-gradient(135deg, rgba(0, 240, 255, 0.1) 0%, rgba(0, 240, 255, 0.02) 100%);
+            transform: translateY(-4px);
+            box-shadow:
+                0 8px 24px rgba(0, 240, 255, 0.2),
+                0 0 40px rgba(0, 240, 255, 0.1),
+                inset 0 1px 0 rgba(255, 255, 255, 0.1);
+        }
+
+        .badge-card.unlocked .badge-icon-box {
+            background: rgba(0, 240, 255, 0.15);
+            border-color: rgba(0, 240, 255, 0.4);
+            color: var(--secondary);
+            box-shadow:
+                0 0 30px rgba(0, 240, 255, 0.4),
+                0 0 60px rgba(0, 240, 255, 0.2);
+            animation: pulse 3s ease-in-out infinite;
+        }
+
+        .badge-card.unlocked::before {
+            opacity: 1;
+        }
+
+        .badge-card.unlocked::after {
+            content: '✓';
+            position: absolute;
+            top: 12px;
+            right: 12px;
+            width: 24px;
+            height: 24px;
+            font-size: 0.8rem;
+            font-weight: bold;
+            color: var(--bg-dark);
+            background: var(--secondary);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 2px 8px rgba(0, 240, 255, 0.4);
+        }
+
+        /* Text Styling - Better Hierarchy */
+        .badge-title {
+            font-weight: 700;
+            font-size: 1.05rem;
+            margin-bottom: 8px;
+            color: #fff;
+            line-height: 1.3;
+        }
+
+        .badge-desc {
+            font-size: 0.85rem;
+            color: var(--text-dim);
+            line-height: 1.5;
+        }
+
+        /* Pulse Animation - Smoother */
+        @keyframes pulse {
+
+            0%,
+            100% {
+                box-shadow:
+                    0 0 30px rgba(0, 240, 255, 0.4),
+                    0 0 60px rgba(0, 240, 255, 0.2);
+            }
+
+            50% {
+                box-shadow:
+                    0 0 40px rgba(0, 240, 255, 0.6),
+                    0 0 80px rgba(0, 240, 255, 0.3);
+            }
+        }
+
+        /* Reward Zone - Better Visual Clarity */
+        .reward-blur {
+            filter: none;
+            opacity: 0.6;
+            transition: all 0.3s;
+        }
+
+        .reward-blur:hover {
+            opacity: 0.8;
+            transform: scale(1.01);
+        }
+
+        /* Responsive Adjustments */
+        @media (max-width: 900px) {
+            .badge-grid-container {
+                grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+                gap: 16px;
+            }
+
+            .badge-card {
+                padding: 20px 16px;
+            }
+
+            .badge-icon-box {
+                width: 60px;
+                height: 60px;
+                font-size: 1.6rem;
+            }
+        }
+    </style>
+</head>
+
+<body class="dashboard-body">
+
+    <div class="mobile-header">
+        <div style="display:flex; align-items:center; gap:10px; font-weight:bold; color:var(--primary);">
+            <ion-icon name="trophy"></ion-icon> HALL OF FAME
+        </div>
+        <ion-icon name="menu-outline" onclick="document.querySelector('.sidebar').classList.toggle('active')"
+            style="font-size:1.8rem; cursor:pointer; color:#fff;"></ion-icon>
+    </div>
+
+    <div class="dashboard-grid">
+
+        <!-- COLUMN 1: SIDEBAR -->
+        <aside class="sidebar slide-in-left">
+            <!-- User Profile Card -->
+            <div class="glass-panel user-card">
+                <div style="position: relative; margin: 0 auto 15px; width: 60px; height: 60px;">
+                    <div class="avatar" id="user-avatar"
+                        style="width: 60px; height: 60px; font-size: 1.5rem; background: linear-gradient(135deg, var(--primary), var(--secondary)); border: 2px solid rgba(255,255,255,0.2); box-shadow: 0 0 20px rgba(10,255,104,0.3);">
+                        ?</div>
+                    <div id="user-rank-badge"
+                        style="position: absolute; bottom: -12px; right: 0px; background: rgba(0,0,0,0.95); border: 2px solid var(--primary); border-radius: 12px; padding: 2px 8px; font-size: 0.65rem; font-weight: 700; letter-spacing: 0.5px; color: #fff; z-index: 10;">
+                        ROOKIE</div>
+                </div>
+                <h3 id="user-name-display" style="margin-bottom: 5px;">Unknown Agent</h3>
+                <p class="text-muted" style="font-size: 0.8rem; margin-bottom: 15px;" id="user-level-text">LEVEL 1
+                    RECRUIT</p>
+                <div class="flex center gap-10">
+                    <button class="btn btn-primary" onclick="window.location.href='profile.html'"
+                        style="font-size: 0.7rem; padding: 6px 12px;">Profile</button>
+                    <button class="btn btn-outline" id="logout-btn-dash"
+                        style="font-size: 0.7rem; padding: 6px 12px;">Logout</button>
+                </div>
+            </div>
+
+            <!-- Navigation -->
+            <nav class="glass-panel" style="padding: 10px; margin-bottom: 12px;">
+                <div class="nav-menu" style="gap: 8px;">
+                    <div class="nav-item" onclick="window.location.href='dashboard.html'"
+                        style="cursor: pointer; padding: 10px 12px;"><ion-icon name="grid-outline"></ion-icon> Dashboard
+                    </div>
+                    <div class="nav-item" onclick="window.location.href='analytics.html'"
+                        style="cursor: pointer; padding: 10px 12px;">
+                        <ion-icon name="bar-chart-outline"></ion-icon> Analytics
+                    </div>
+                    <div class="nav-item active" onclick="window.location.href='achievements.html'"
+                        style="cursor: pointer; padding: 10px 12px;">
+                        <ion-icon name="trophy-outline"></ion-icon> Achievements
+                    </div>
+                    <div class="nav-item" onclick="window.location.href='settings.html'"
+                        style="cursor: pointer; padding: 10px 12px;">
+                        <ion-icon name="settings-outline"></ion-icon> Settings
+                    </div>
+                    <div class="nav-item" onclick="shareApp()"
+                        style="cursor: pointer; padding: 10px 12px; color: var(--secondary);">
+                        <ion-icon name="share-social-outline"></ion-icon> Share App
+                    </div>
+                </div>
+            </nav>
+
+            <!-- Quick Actions -->
+            <div class="glass-panel" style="padding: 15px; text-align: center;">
+                <p style="font-size: 0.75rem; margin-bottom: 8px; color: var(--text-dim);">POMODORO TIMER</p>
+                <div style="font-size: 1.8rem; font-weight: 700; color: var(--secondary); margin-bottom: 8px;">25:00
+                </div>
+                <button class="btn btn-outline w-full center" style="padding: 8px; font-size: 0.8rem;"><ion-icon
+                        name="play"></ion-icon> START</button>
+            </div>
+        </aside>
+
+        <main class="main-feed">
+
+            <div class="currency-card">
+                <div>
+                    <h1 style="margin: 0; font-size: 1.8rem;">DISCIPLINE LEGACY</h1>
+                    <p style="color: var(--text-dim); margin-top: 5px; font-size: 0.9rem;">Earn badges by maintaining
+                        your streak.</p>
+                </div>
+                <div style="text-align: right;">
+                    <div style="font-size: 0.8rem; color: var(--warning); letter-spacing: 1px;">TOTAL COINS</div>
+                    <div class="flex center" style="gap: 10px;">
+                        <ion-icon name="wallet" style="font-size: 2rem; color: var(--warning);"></ion-icon>
+                        <span id="total-points" style="font-size: 2.5rem; font-weight: 800; color: #fff;">0</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="flex between center mb-4" style="margin-bottom: 20px;">
+                <h3 style="margin: 0;"><ion-icon name="ribbon"></ion-icon> TROPHY CABINET</h3>
+                <span style="font-size: 0.8rem; color: var(--text-dim);">COLLECT 'EM ALL</span>
+            </div>
+
+            <div id="badge-grid" class="badge-grid-container">
+                <div style="grid-column: 1/-1; text-align: center; padding: 40px; color: var(--text-dim);">
+                    <ion-icon name="sync" class="spin" style="font-size: 2rem;"></ion-icon><br>
+                    Loading Achievements...
+                </div>
+            </div>
+
+            <div style="margin-top: 60px;">
+                <div class="flex between center mb-4">
+                    <h3 style="margin: 0; color: var(--danger);"><ion-icon name="gift"></ion-icon> REWARD ZONE</h3>
+                    <span
+                        style="font-size: 0.7rem; background: rgba(255,0,0,0.1); border: 1px solid var(--danger); color: var(--danger); padding: 2px 8px; border-radius: 4px;">LIVE
+                        BETA</span>
+                </div>
+
+                <div class="glass-panel" style="padding: 0; overflow: hidden;">
+                    <!-- Earning Rules -->
+                    <div
+                        style="padding: 20px; border-bottom: 1px solid rgba(255,255,255,0.1); background: rgba(0,0,0,0.2);">
+                        <h4 style="margin-bottom: 10px; color: var(--secondary);">How to Earn Coins?</h4>
+                        <div
+                            style="display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 10px; font-size: 0.85rem; color: var(--text-dim);">
+                            <div>✓ Complete Task: <strong style="color: #fff;">+1 Point</strong></div>
+                            <div>🔥 Daily Streak: <strong style="color: #fff;">+5 Bonus</strong></div>
+                            <div>⚡ 7-Day Streak: <strong style="color: #fff;">+20 Bonus</strong></div>
+                            <div>🏆 Unlock Badge: <strong style="color: #fff;">+50 Points</strong></div>
+                        </div>
+                    </div>
+
+                    <!-- Reward Tiers -->
+                    <div style="padding: 24px;">
+                        <div class="flex between center"
+                            style="margin-bottom: 15px; padding-bottom: 15px; border-bottom: 1px dashed rgba(255,255,255,0.1);">
+                            <div>
+                                <div style="font-weight: bold; font-size: 1.1rem;">₹5 Test Series Coupon</div>
+                                <div style="font-size: 0.8rem; color: var(--text-dim);">Valid on Top 5 Exam Platforms
+                                </div>
+                            </div>
+                            <button class="btn btn-outline" style="font-size: 0.8rem;">Redeem (500 Pts)</button>
+                        </div>
+
+                        <div class="flex between center"
+                            style="margin-bottom: 15px; padding-bottom: 15px; border-bottom: 1px dashed rgba(255,255,255,0.1);">
+                            <div>
+                                <div style="font-weight: bold; font-size: 1.1rem;">₹10 Test Series Coupon</div>
+                                <div style="font-size: 0.8rem; color: var(--text-dim);">Valid on Top 5 Exam Platforms
+                                </div>
+                            </div>
+                            <button class="btn btn-outline" style="font-size: 0.8rem; opacity: 0.5;">Redeem (1000
+                                Pts)</button>
+                        </div>
+
+                        <div class="flex between center"
+                            style="margin-bottom: 15px; padding-bottom: 15px; border-bottom: 1px dashed rgba(255,255,255,0.1);">
+                            <div>
+                                <div style="font-weight: bold; font-size: 1.1rem; color: var(--warning);">₹100 CASH
+                                    PRIZE</div>
+                                <div style="font-size: 0.8rem; color: var(--text-dim);">Direct UPI Transfer / Full
+                                    Course</div>
+                            </div>
+                            <button class="btn btn-outline" style="font-size: 0.8rem; opacity: 0.5;" disabled>Redeem
+                                (10000 Pts)</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </main>
+
+        <aside class="right-panel">
+            <div class="glass-panel">
+                <h4><ion-icon name="trending-up"></ion-icon> Next Milestone</h4>
+                <p class="text-muted" style="font-size: 0.8rem; margin-top: 10px;">
+                    Unlock <strong>"Week Warrior"</strong> by hitting a 7-day streak.
+                </p>
+                <div
+                    style="margin-top: 15px; width: 100%; height: 6px; background: rgba(255,255,255,0.1); border-radius: 3px;">
+                    <div style="width: 60%; height: 100%; background: var(--secondary); border-radius: 3px;"></div>
+                </div>
+            </div>
+        </aside>
+
+    </div>
+
+    <script>
+        // Service Worker Registration
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('./sw.js')
+                    .then(reg => console.log('Service Worker registered'))
+                    .catch(err => console.log('Service Worker registration failed', err));
+            });
+        }
+    </script>
+</body>
+
+</html>

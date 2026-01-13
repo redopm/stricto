@@ -1,0 +1,157 @@
+id,topic,sub-topic
+1,Calculation,Addition and Subtraction
+2,Calculation,Multiplication Techniques
+3,Calculation,Multiplication and Division
+4,Calculation,Square and Square root
+5,Calculation,Cube and Cube root
+6,Calculation,BODMAS Rule
+7,Calculation,Percentage Based
+8,Calculation,Fraction and Decimal Based
+9,Calculation,Power Comparison Based
+10,Calculation,Miscellaneous Simplification
+11,Calculation,Simplification (PYQ)
+12,Calculation,Basics of Approximation
+13,Calculation,Approximation Moderate Level
+14,Calculation,Approximation (PYQ)
+15,Calculation,Test Session
+16,Number Series,Basics of Number Series
+17,Number Series,Missing Number Series
+18,Number Series,Wrong Number Series
+19,Number Series,New Pattern Based Questions
+20,Number Series,Number Series (PYQ)
+21,Number Series,Test Session
+22,Quadratic Equation,Basics of Quadratic Equation
+23,Quadratic Equation,Basic Level Questions
+24,Quadratic Equation,Moderate to Difficult Level
+25,Quadratic Equation,Quadratic Equation (PYQ)
+26,Quadratic Equation,Test Session
+27,Ratio and Proportion,Basics of Ratio and Proportion
+28,Ratio and Proportion,Combined Relation
+29,Ratio and Proportion,Cross Multiplication
+30,Ratio and Proportion,Miscellaneous Questions Easy Level
+31,Ratio and Proportion,Miscellaneous Questions Moderate Level
+32,Ratio and Proportion,Miscellaneous Questions Difficult Level
+33,Ratio and Proportion,Ratio and Proportion (PYQ)
+34,Ratio and Proportion,Test Session
+35,Ages Based Problems,Basics of Ages Based Problems
+36,Ages Based Problems,Easy Level
+37,Ages Based Problems,Moderate Level
+38,Ages Based Problems,Difficult Level
+39,Ages Based Problems,Ages Based Problems (PYQ)
+40,Ages Based Problems,Test Session
+41,Partnerhip,Basics of Partnerhip
+42,Partnerhip,Easy Level
+43,Partnerhip,Moderate Level
+44,Partnerhip,Difficult Level
+45,Partnerhip,Partnerhip (PYQ)
+46,Partnerhip,Test Session
+47,Percentage,Basics of Percentage
+48,Percentage,Successive Changes Based
+49,Percentage,Percentage (PYQ)
+50,Percentage,Test Session
+51,Election and Income-Exp Based,Basics of Election and Income-Exp Based
+52,Election and Income-Exp Based,Product Stability Based
+53,Election and Income-Exp Based,Election and Income-Exp Based (PYQ)
+54,Election and Income-Exp Based,Test Session
+55,Profit and Loss,Basic Concepts
+56,Profit and Loss,Easy to Moderate level
+57,Profit and Loss,Discount Based
+58,Profit and Loss,Moderate to Difficult level
+59,Profit and Loss,Dishonest Shopkeeper Based
+60,Profit and Loss,Profit and loss (PYQ)
+61,Profit and Loss,Test Session
+62,Simple and Compound Interest,Basic Concepts
+63,Simple and Compound Interest,SI Based Questions
+64,Simple and Compound Interest,Basics of Compound Interest
+65,Simple and Compound Interest,CI Based Questions
+66,Simple and Compound Interest,SI and CI Mix Questions
+67,Simple and Compound Interest,SI and CI (PYQ)
+68,Simple and Compound Interest,Test Session
+69,Mixture and Alligation,Basic Level Questions
+70,Mixture and Alligation,Replacement Based Questions
+71,Mixture and Alligation,Successive Replacement Based
+72,Mixture and Alligation,Alligation Based
+73,Mixture and Alligation,Weighted Average Based
+74,Mixture and Alligation,Mixture and Alligation (PYQ)
+75,Mixture and Alligation,Test Session
+76,Time and Work,Basics of Time and Work
+77,Time and Work,Easy Level
+78,Time and Work,Moderate Level
+79,Time and Work,Difficult Level
+80,Time and Work,Time and Work (PYQ)
+81,Time and Work,Test Session
+82,Pipe and Cistern Based,Basics of Pipe and Cistern Based
+83,Pipe and Cistern Based,Pipe and Cistern Based (PYQ)
+84,Pipe and Cistern Based,Test Session
+85,Speed Time and Distance,Basic Concepts
+86,Speed Time and Distance,Time Difference Based
+87,Speed Time and Distance,Relative Speed Based
+88,Speed Time and Distance,Miscellaneous
+89,Train Based Problems,Basics of Train Based Problems
+90,Train Based Problems,Train Based Problems (PYQ)
+91,Train Based Problems,Test Session
+92,Boat and Stream,Basics of Boat and Stream
+93,Boat and Stream,Easy Level
+94,Boat and Stream,Moderate to Difficult Level
+95,Boat and Stream,Boat and Stream (PYQ)
+96,Boat and Stream,Test Session
+97,Average,Basics of Average
+98,Average,Easy Level
+99,Average,Moderate to Difficult Level
+100,Average,Average (PYQ)
+101,Average,Test Session
+102,Data Interpretation,Basics of Data Interpretation
+103,Data Interpretation,Table DI (Clerk Pre)
+104,Data Interpretation,Line Graph (Clerk Pre)
+105,Data Interpretation,Bar Graph (Clerk Pre)
+106,Data Interpretation,Pie Chart (Clerk Pre)
+107,Data Interpretation,Caselet DI (Clerk Pre)
+108,Data Interpretation,Table DI (PO Pre)
+109,Data Interpretation,Data Interpretation
+110,Data Interpretation,Line Graph (PO Pre)
+111,Data Interpretation,Bar Graph (PO Pre)
+112,Data Interpretation,Pie Chart (PO Pre)
+113,Data Interpretation,Caselet DI (PO Pre)
+114,Data Interpretation,New Pattern Based DI (Mains Level) -1
+115,Data Interpretation,New Pattern Based DI (Mains Level) -2
+116,Data Interpretation,New Pattern Based DI (Mains Level) -3
+117,Data Interpretation,New Pattern Based DI (Mains Level) -4
+118,Data Interpretation,DI (PYQ)
+119,Data Interpretation,Test Session
+120,Permutation and Combination,Basics Concepts
+121,Permutation and Combination,Easy Level
+122,Permutation and Combination,Moderate Level
+123,Permutation and Combination,Difficult Level
+124,Permutation and Combination,P & C(PYQ)
+125,Permutation and Combination,Test Session
+126,Probability,Basics Concepts
+127,Probability,Easy Level
+128,Probability,Moderate Level
+129,Probability,Difficult Level
+130,Probability,PYQ
+131,Probability,Test Session
+132,Mensuration,Basics of Mensuration
+133,Mensuration,Introduction of 2D Figures
+134,Mensuration,2D Based Questions
+135,Mensuration,Introduction of 3D Figures
+136,Mensuration,3D Based Questions
+137,Mensuration,Mixed Questions
+138,Mensuration,PYQ
+139,Mensuration,Test Session
+140,DS and Quantity Comparison,Basics of DS and Quantity Comparison
+141,DS and Quantity Comparison,DS ( 2 statement)
+142,DS and Quantity Comparison,DS ( 3 statement)
+143,DS and Quantity Comparison,Q1-Q2
+144,DS and Quantity Comparison,Q1-Q2-Q3
+145,DS and Quantity Comparison,PYQ
+146,DS and Quantity Comparison,Test Session
+148,Number System & Algebra,Classification of Numbers
+149,Number System & Algebra,LCM - HCF
+150,Number System & Algebra,AP-GP
+154,Number System & Algebra,Divisibility and Remainder
+155,Number System & Algebra,Miscellaneous Problems
+156,Number System & Algebra,Basic Identities of algebra
+157,Number System & Algebra,Surds and Indices Based
+158,Number System & Algebra,Miscellaneous Questions
+159,Number System & Algebra,Test Session
+
