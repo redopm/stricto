@@ -28,16 +28,15 @@
                     <ion-icon name="shield-half"></ion-icon>
                 </div>
                 <h1 class="auth-title glitch" data-text="STRICTO" style="font-size: 2rem; margin: 0;">STRICTO</h1>
-                <p class="text-center text-muted"
-                    style="letter-spacing: 2px; text-transform: uppercase; font-size: 0.7rem; opacity: 0.7;">
-                    Operational Intelligence Unit
+                <p class="text-center text-muted" style="letter-spacing: 1px; font-size: 0.8rem; opacity: 0.7;">
+                    Your Smart Study Planner
                 </p>
             </div>
 
             <!-- TABS -->
             <div class="tab-container" style="margin-bottom: 30px;">
-                <span id="tab-login" class="tab active">AUTHENTICATE</span>
-                <span id="tab-signup" class="tab">ENLIST</span>
+                <span id="tab-login" class="tab active">Login</span>
+                <span id="tab-signup" class="tab">Sign Up</span>
             </div>
 
             <form id="auth-form" class="flex col" style="flex-grow:1;">
@@ -45,23 +44,23 @@
                 <!-- Register Only Fields -->
                 <div id="register-fields" class="hidden">
                     <div class="input-group">
-                        <label class="input-label">CODENAME</label>
-                        <input type="text" id="username" class="input-field" placeholder="Create your alias">
+                        <label class="input-label">Name</label>
+                        <input type="text" id="username" class="input-field" placeholder="Enter your name">
                     </div>
                     <div class="input-group">
-                        <label class="input-label">SECURE LINE</label>
-                        <input type="tel" id="phone" class="input-field" placeholder="10-digit comms number"
+                        <label class="input-label">Phone Number</label>
+                        <input type="tel" id="phone" class="input-field" placeholder="10-digit mobile number"
                             maxlength="10">
                     </div>
                 </div>
 
                 <div class="input-group">
-                    <label class="input-label">IDENTITY</label>
-                    <input type="email" id="email" class="input-field" placeholder="agent@stricto.ai" required>
+                    <label class="input-label">Email</label>
+                    <input type="email" id="email" class="input-field" placeholder="your@email.com" required>
                 </div>
 
                 <div class="input-group">
-                    <label class="input-label">PASSCODE</label>
+                    <label class="input-label">Password</label>
                     <input type="password" id="password" class="input-field" placeholder="••••••••" required>
                 </div>
 
@@ -77,13 +76,13 @@
                 <div style="margin-top: 20px;">
                     <button type="submit" class="btn btn-primary w-full center" id="auth-btn"
                         style="height: 50px; font-size: 1rem; letter-spacing: 1px; justify-content: center;">
-                        <ion-icon name="finger-print-outline" style="font-size: 1.2rem;"></ion-icon>
-                        <span>INITIATE PROTOCOL</span>
+                        <ion-icon name="log-in-outline" style="font-size: 1.2rem;"></ion-icon>
+                        <span>Continue</span>
                     </button>
 
                     <div class="flex center gap-10 mb-4">
                         <div style="height:1px; background:var(--glass-border); flex:1;"></div>
-                        <span class="text-muted" style="font-size:0.7rem;">OR ACCESS VIA</span>
+                        <span class="text-muted" style="font-size:0.7rem;">OR</span>
                         <div style="height:1px; background:var(--glass-border); flex:1;"></div>
                     </div>
 

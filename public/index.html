@@ -3,18 +3,55 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="refresh" content="0; url=login.html">
-    <title>Stricto - Redirecting...</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stricto - Loading...</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        body {
+            background-color: #000;
+            color: #fff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            font-family: sans-serif;
+            flex-direction: column;
+        }
+
+        .loader {
+            width: 40px;
+            height: 40px;
+            border: 3px solid rgba(10, 255, 104, 0.3);
+            border-radius: 50%;
+            border-top-color: #0aff68;
+            animation: spin 1s ease-in-out infinite;
+            margin-bottom: 20px;
+        }
+
+        @keyframes spin {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+    </style>
 </head>
 
 <body>
+    <div class="loader"></div>
+    <div style="color: rgba(10, 255, 104, 0.7); font-size: 0.9rem; letter-spacing: 1px;">Loading...</div>
+
     <script type="module">
         import { auth, onAuthStateChanged } from './firebase-config.js';
+
+        console.log("Checking Auth State...");
         onAuthStateChanged(auth, (user) => {
             if (user) {
-                window.location.href = 'dashboard.html';
+                console.log("User Logged In -> Dashboard");
+                window.location.replace('dashboard.html');
             } else {
-                window.location.href = 'login.html';
+                console.log("No User -> Login");
+                window.location.replace('login.html');
             }
         });
     </script>

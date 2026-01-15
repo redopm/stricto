@@ -87,21 +87,41 @@
 }
 
 .profile-details-body {
-    padding-top: 60px;
+    padding: 85px 20px 30px 20px !important;
+    /* Reset padding (remove 170px left) */
     text-align: center;
 }
 
 .wrap-on-mobile {
     flex-direction: column !important;
-    gap: 20px;
+    gap: 15px;
+    align-items: center !important;
+    /* Force center alignment */
 }
 
 .rank-display {
     text-align: center !important;
+    width: 100%;
 }
 
 .stats-grid-3 {
-    grid-template-columns: 1fr !important;
+    grid-template-columns: repeat(2, 1fr) !important;
+    /* 2 cols */
+    gap: 10px !important;
+}
+
+/* 3rd item (Total Hours) spans full width */
+.stats-grid-3 .stat-box:last-child {
+    grid-column: span 2;
+}
+
+/* Fix stat value size on mobile */
+.stat-box .value {
+    font-size: 1.2rem !important;
+}
+
+.stat-box .label {
+    font-size: 0.6rem !important;
 }
 
 /* ===== ANALYTICS PAGE ===== */

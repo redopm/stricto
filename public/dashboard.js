@@ -109,7 +109,7 @@ async function fetchTaskFromPython(subjectName, userLevel) {
     // URL SWITCHING (DEV vs PROD)
     const IS_LOCALHOST = window.location.hostname === '127.0.0.1' || window.location.hostname === 'localhost';
 
-    // TODO: USER_MUST_UPDATE_THIS_AFTER_DEPLOYMENT
+    // Live Backend URL
     const PROD_URL = "https://stricto-backend.onrender.com/get-daily-task";
     const DEV_URL = "http://127.0.0.1:5000/get-daily-task";
 

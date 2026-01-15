@@ -1,16 +1,16 @@
 // Import the functions you need from the SDKs you need
-import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
-import { getAuth, GoogleAuthProvider, signInWithPopup, signInWithEmailAndPassword, createUserWithEmailAndPassword, signOut, onAuthStateChanged, updateProfile, sendPasswordResetEmail } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
-import { getFirestore, doc, getDoc, setDoc, updateDoc, arrayUnion } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+import { initializeApp } from "https://www.gstatic.com/firebasejs/12.7.0/firebase-app.js";
+import { getAuth, GoogleAuthProvider, signInWithPopup, signInWithEmailAndPassword, createUserWithEmailAndPassword, signOut, onAuthStateChanged, updateProfile, sendPasswordResetEmail } from "https://www.gstatic.com/firebasejs/12.7.0/firebase-auth.js";
+import { getFirestore, doc, getDoc, setDoc, updateDoc, arrayUnion } from "https://www.gstatic.com/firebasejs/12.7.0/firebase-firestore.js";
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
-    apiKey: "AIzaSyDZalS2SWg-DvyU4Yjh3XYJriz9Vva7520",
-    authDomain: "stricto-001.firebaseapp.com",
-    projectId: "stricto-001",
-    storageBucket: "stricto-001.firebasestorage.app",
-    messagingSenderId: "98226632772",
-    appId: "1:98226632772:web:11834aed8d6572b8a56411"
+    apiKey: "AIzaSyDzEWfyyMMcrxdzjX7IdVAMJyr0bubUpDc",
+    authDomain: "stricto-todo.firebaseapp.com",
+    projectId: "stricto-todo",
+    storageBucket: "stricto-todo.firebasestorage.app",
+    messagingSenderId: "768719767146",
+    appId: "1:768719767146:web:20d71685b3f84e906b6c13"
 };
 
 // Initialize Firebase
