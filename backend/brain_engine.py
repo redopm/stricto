@@ -220,14 +220,25 @@ class StrictoBrain:
         
         return strategies
 
-    def generate_task(self, subject, level, exam_stage, days_left, user_type='repeater', syllabus_percent=0, daily_hours=6, topic_progress=None):
+    def generate_task(self, subject, level, exam_stage, days_left, user_type='repeater', syllabus_percent=0, daily_hours=6, topic_progress=None, completion_history=None):
         """
         Generate tasks with proper coaching logic + Topic Filtering + Subject Priority + Sequential Progress
+        MAX 10 TASKS LIMIT ENFORCED + PERFORMANCE-BASED ADAPTATION
+        
         topic_progress: dict {"Math": 15, "English": 8} - last completed topic ID per subject
+        completion_history: dict {"Math": 0.75, "English": 0.50} - completion rates for adaptive learning
         """
         strategies = self.get_strategy(subject, level, exam_stage, days_left, syllabus_percent, user_type, daily_hours)
         if not strategies:
             return []
+        
+        # FEATURE #2: Get performance-based adjustments (initialize here)
+        performance_multiplier = 1.0
+        if completion_history and subject in completion_history:
+            adjustments = self.get_performance_adjustment({subject: completion_history[subject]})
+            if subject in adjustments:
+                performance_multiplier = adjustments[subject]['task_multiplier']
+                print(f"[PERFORMANCE] {subject}: Applying {performance_multiplier}x task adjustment")
 
         generated_tasks = []
         subject_topics = self.kb[self.kb['Subject'] == subject] if subject in self.kb['Subject'].values else pd.DataFrame()
