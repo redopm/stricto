@@ -10,6 +10,49 @@ class StrictoBrain:
     
     def __init__(self, task_db):
         self.kb = task_db
+    
+    def get_performance_adjustment(self, completion_history):
+        """
+        FEATURE #2: Performance-Based Task Adjustment
+        Analyzes student's completion rate and suggests adaptive changes
+        
+        Args:
+            completion_history: dict with subject-wise completion rates
+                Example: {"Math": 0.45, "English": 0.85, "Reasoning": 0.60}
+        
+        Returns:
+            dict with adjustment factors for each subject
+        """
+        adjustments = {}
+        
+        for subject, completion_rate in completion_history.items():
+            # Default: no adjustment
+            task_count_multiplier = 1.0
+            difficulty_level = "normal"
+            
+            # STRUGGLING (< 50% completion) - Reduce load, easier tasks
+            if completion_rate < 0.5:
+                task_count_multiplier = 0.7  # 30% fewer tasks
+                difficulty_level = "easier"
+                print(f"📉 [ADAPT] {subject}: Low completion ({completion_rate:.0%}), reducing tasks by 30%")
+            
+            # DOING GREAT (> 80% completion) - Can handle more
+            elif completion_rate > 0.8:
+                task_count_multiplier = 1.2  # 20% more tasks
+                difficulty_level = "harder"
+                print(f"📈 [ADAPT] {subject}: High completion ({completion_rate:.0%}), increasing challenge by 20%")
+            
+            # NORMAL (50-80%) - Keep current pace
+            else:
+                print(f"✅ [ADAPT] {subject}: Steady progress ({completion_rate:.0%}), maintaining current level")
+            
+            adjustments[subject] = {
+                "task_multiplier": task_count_multiplier,
+                "difficulty": difficulty_level,
+                "completion_rate": completion_rate
+            }
+        
+        return adjustments
         
     def get_strategy(self, subject, level, exam_stage, days_left, syllabus_percent=0, user_type='repeater', daily_hours=6):
         """
@@ -252,6 +295,16 @@ class StrictoBrain:
             
             
             generated_tasks.append(task_obj)
+        
+        # ============================================
+        # PERFORMANCE-BASED TASK COUNT ADJUSTMENT
+        # ============================================
+        if completion_history and subject in completion_history and performance_multiplier != 1.0:
+            target_count = int(len(generated_tasks) * performance_multiplier)
+            if target_count < len(generated_tasks):
+                # Reduce tasks for struggling students
+                generated_tasks = generated_tasks[:target_count]
+                print(f"[ADAPT] Reduced from {len(generated_tasks)} to {target_count} tasks due to performance")
         
         # ============================================
         # TASK LIMIT CONTROL: MAX 10 TASKS
