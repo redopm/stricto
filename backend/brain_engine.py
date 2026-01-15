@@ -152,7 +152,7 @@ class StrictoBrain:
                     
                 else:
                     # Far Phase: 2 Pre + 1 Mains per week
-                    strategies.append(("Revision", "Concept Revision (3/7/21)", 1.5))
+                    strategies.append(("Revision", "Concept Revision", 1.5))
                     strategies.append(("Practice", "Advanced Practice", 1.5))
                     strategies.append(("Test", "Prelims Full Mock (2 per week)", 1.0))
                     strategies.append(("Test", "Mains Full Mock (1 per week)", 1.0))
@@ -252,5 +252,39 @@ class StrictoBrain:
             
             
             generated_tasks.append(task_obj)
+        
+        # ============================================
+        # TASK LIMIT CONTROL: MAX 10 TASKS
+        # ============================================
+        MAX_TASKS_LIMIT = 10
+        if len(generated_tasks) > MAX_TASKS_LIMIT:
+            print(f"⚠️ [LIMIT] Generated {len(generated_tasks)} tasks, reducing to {MAX_TASKS_LIMIT}")
+            
+            # Smart Reduction Strategy:
+            # 1. Keep all high-priority tasks
+            # 2. Keep daily habits (Editorial, Calculation)
+            # 3. Reduce optional/lower-priority tasks
+            
+            priority_tasks = []
+            optional_tasks = []
+            
+            for task in generated_tasks:
+                # Keep high priority and daily habits
+                if task['priority'] == 'high' or 'Editorial' in task['task'] or 'Calculation Drill' in task['task']:
+                    priority_tasks.append(task)
+                else:
+                    optional_tasks.append(task)
+            
+            # Calculate how many optional tasks we can keep
+            remaining_slots = MAX_TASKS_LIMIT - len(priority_tasks)
+            
+            if remaining_slots > 0:
+                # Keep the most important optional tasks
+                generated_tasks = priority_tasks + optional_tasks[:remaining_slots]
+            else:
+                # If even priority tasks exceed limit, keep first 10
+                generated_tasks = priority_tasks[:MAX_TASKS_LIMIT]
+            
+            print(f"✅ [LIMIT] Reduced to {len(generated_tasks)} tasks (Priority: {len(priority_tasks)}, Optional: {min(remaining_slots, len(optional_tasks))})")
         
         return generated_tasks
