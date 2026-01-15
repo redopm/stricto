@@ -99,19 +99,57 @@ class StrictoBrain:
             return strategies
         
         # ============================================
-        # SPACED REPETITION LOGIC - TEMPORARILY DISABLED
+        # SPACED REPETITION LOGIC (3/7/21 System)
         # ============================================
-        # PROBLEM: Generic "3-Day Review" tasks are impossible without actual topic history!
-        # A repeater who started TODAY has NOTHING to review from 3/7/21 days ago.
-        # 
-        # SOLUTION: Disabled until frontend implements topicHistory tracking.
-        # When implemented, logic should be:
-        # if topic_history and user_type == 'repeater':
-        #     for each topic that needs review based on completion date:
-        #         Add specific "3-Day Review: [Topic Name]" task
-        # 
-        # For now, repeaters will get Chapter-wise Revision (from repeater strategy below)
-        # which is a valid alternative without needing specific history.
+        # FEATURE #1: Automatic review tasks based on completion dates
+        # Implements 3-day, 7-day, and 21-day review cycles for permanent retention
+        
+        def get_spaced_repetition_tasks(self, topic_completion_history, subject):
+            """
+            Generate review tasks based on 3/7/21 day spaced repetition
+            
+            Args:
+                topic_completion_history: dict of {topic_name: completion_date_string}
+                    Example: {"Algebra Basics": "2024-01-10", "Geometry": "2024-01-05"}
+                subject: Current subject being processed
+                
+            Returns:
+                list of review task tuples: [(type, description, duration), ...]
+            """
+            if not topic_completion_history:
+                return []
+            
+            review_tasks = []
+            today = datetime.now().date()
+            
+            for topic_name, completion_date_str in topic_completion_history.items():
+                try:
+                    completion_date = datetime.strptime(completion_date_str, '%Y-%m-%d').date()
+                    days_since_completion = (today - completion_date).days
+                    
+                    # 3-Day Review (First reinforcement)
+                    if days_since_completion == 3:
+                        review_tasks.append(("Revision", f"3-Day Review: {topic_name}", 0.5))
+                        print(f"📝 [SPACED] Adding 3-day review for {topic_name}")
+                    
+                    # 7-Day Review (Second reinforcement)
+                    elif days_since_completion == 7:
+                        review_tasks.append(("Revision", f"7-Day Review: {topic_name}", 0.75))
+                        print(f"📝 [SPACED] Adding 7-day review for {topic_name}")
+                    
+                    # 21-Day Review (Long-term retention)
+                    elif days_since_completion == 21:
+                        review_tasks.append(("Revision", f"21-Day Review: {topic_name}", 1.0))
+                        print(f"📝 [SPACED] Adding 21-day review for {topic_name}")
+                    
+                except ValueError:
+                    print(f"⚠️ [SPACED] Invalid date format for {topic_name}: {completion_date_str}")
+                    continue
+            
+            return review_tasks
+        
+        # Apply spaced repetition for BOTH beginners and repeaters
+        # This is called in generate_task() with topic_completion_history parameter
         # ============================================
         # BEGINNER STRATEGY
         # ============================================
@@ -220,17 +258,26 @@ class StrictoBrain:
         
         return strategies
 
-    def generate_task(self, subject, level, exam_stage, days_left, user_type='repeater', syllabus_percent=0, daily_hours=6, topic_progress=None, completion_history=None):
+    def generate_task(self, subject, level, exam_stage, days_left, user_type='repeater', syllabus_percent=0, daily_hours=6, topic_progress=None, completion_history=None, topic_completion_history=None):
         """
         Generate tasks with proper coaching logic + Topic Filtering + Subject Priority + Sequential Progress
-        MAX 10 TASKS LIMIT ENFORCED + PERFORMANCE-BASED ADAPTATION
+        MAX 10 TASKS LIMIT ENFORCED + PERFORMANCE-BASED ADAPTATION + SPACED REPETITION (3/7/21)
         
         topic_progress: dict {"Math": 15, "English": 8} - last completed topic ID per subject
         completion_history: dict {"Math": 0.75, "English": 0.50} - completion rates for adaptive learning
+        topic_completion_history: dict {"Algebra": "2024-01-10"} - topic completion dates for spaced repetition
         """
         strategies = self.get_strategy(subject, level, exam_stage, days_left, syllabus_percent, user_type, daily_hours)
         if not strategies:
             return []
+        
+        # FEATURE #1: Add spaced repetition review tasks (3/7/21 day reviews)
+        if topic_completion_history:
+            spaced_tasks = self.get_spaced_repetition_tasks(topic_completion_history, subject)
+            if spaced_tasks:
+                # Prepend review tasks (high priority)
+                strategies = spaced_tasks + strategies
+                print(f"[SPACED] Added {len(spaced_tasks)} review tasks for {subject}")
         
         # FEATURE #2: Get performance-based adjustments (initialize here)
         performance_multiplier = 1.0
