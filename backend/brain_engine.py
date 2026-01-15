@@ -21,12 +21,13 @@ class StrictoBrain:
         # DAILY HABITS (ALL STUDENTS) - DYNAMIC TIME
         # ============================================
         # Allocate time based on daily_hours: 5+ hrs = 40min/20min, <5 hrs = 30min/20min
+        # USER REQUIREMENT: MAX caps - Editorial 1hr, Calculation 30min
         if daily_hours >= 5:
-            editorial_time = 0.67  # 40 minutes
-            calculation_time = 0.33  # 20 minutes
+            editorial_time = min(0.67, 1.0)  # 40 minutes, MAX 1 hour
+            calculation_time = min(0.33, 0.5)  # 20 minutes, MAX 30 min
         else:
-            editorial_time = 0.5  # 30 minutes (minimum)
-            calculation_time = 0.33  # 20 minutes (minimum)
+            editorial_time = min(0.5, 1.0)  # 30 minutes, MAX 1 hour  
+            calculation_time = min(0.33, 0.5)  # 20 minutes, MAX 30 min
         
         if subject == 'English':
             strategies.append(("Learning", "Editorial Reading (The Hindu)", editorial_time))
@@ -221,6 +222,10 @@ class StrictoBrain:
         for strategy_type, strategy_desc, duration_hrs in strategies:
             # Apply time multiplier
             adjusted_duration = duration_hrs * time_multiplier
+            
+            # USER REQUIREMENT: Mock MAX 1 HOUR (safety cap)
+            if strategy_type == "Test" and "Mock" in strategy_desc:
+                adjusted_duration = min(adjusted_duration, 1.0)  # CAP at 1 hour MAX
             
             task_obj = {
                 "subject": subject,
